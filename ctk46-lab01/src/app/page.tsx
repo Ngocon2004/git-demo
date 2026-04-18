@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Counter from "@/components/counter";
 
 export default function HomePage() {
   return (
@@ -17,6 +18,12 @@ export default function HomePage() {
         <p className="text-xl text-gray-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed">
           Sinh viên Công nghệ Thông tin tại Đại học Đà Lạt. Đam mê xây dựng các sản phẩm số hiện đại, tối ưu và mang lại giá trị cho người dùng.
         </p>
+        
+        {/* Counter Component Integration */}
+        <div className="max-w-xs mx-auto mb-12">
+          <Counter />
+        </div>
+
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
             href="/projects"
