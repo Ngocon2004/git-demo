@@ -7,8 +7,8 @@ export default function Footer() {
             © 2026 — Dơng Gur Ha Hải | CTK46 — ĐH Đà Lạt
           </p>
           <div className="flex gap-6 text-sm text-gray-500">
-            <a href="https://github.com/haidgh" target="_blank" className="hover:text-blue-600">GitHub</a>
-            <a href="mailto:haidgh@sv.dlu.edu.vn" className="hover:text-blue-600">Email</a>
+            <a href="https://github.com/Ngocon2004?tab=repositories" target="_blank" className="hover:text-emerald-600">GitHub</a>
+            <a href="mailto:2212363@dlu.edu.vn" className="hover:text-emerald-600">Email</a>
           </div>
         </div>
       </div>

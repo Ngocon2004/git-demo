@@ -32,7 +32,7 @@ export default function AboutPage() {
               </li>
               <li className="flex items-center gap-3 text-emerald-600 dark:text-emerald-400 underline">
                 <span className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center">📧</span>
-                haidgh@sv.dlu.edu.vn
+                2212363@dlu.edu.vn
               </li>
             </ul>
           </div>
