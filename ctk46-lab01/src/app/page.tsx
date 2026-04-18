@@ -1,61 +1,72 @@
-export default function Home() {
- return (
- <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-gray-50 dark:bg-zinc-950">
- <div className="text-center max-w-3xl w-full">
- <h1 className="text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">
- Xin chào! 👋
- </h1>
- 
- <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-xl mb-8 border border-gray-100 dark:border-zinc-800">
- <p className="text-2xl text-gray-700 dark:text-zinc-300 mb-2">
- Họ và tên: <span className="font-bold text-black dark:text-white">Dơng Gur Ha Hải</span>
- </p>
- <p className="text-2xl text-gray-700 dark:text-zinc-300 mb-2">
- MSSV: <span className="font-bold text-black dark:text-white">2212363</span>
- </p>
- <p className="text-xl text-gray-500 dark:text-zinc-400 mb-6">
- Môn: Các công nghệ mới trong PTPM
- </p>
- 
- <div className="max-w-xl mx-auto mb-0 text-lg text-gray-600 dark:text-zinc-400 italic leading-relaxed">
- "Tôi là một sinh viên đam mê lập trình, luôn tìm tòi và học hỏi các công nghệ mới để xây dựng những ứng dụng web hiện đại và hữu ích."
- </div>
- </div>
+import Link from "next/link";
 
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-left">
- <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl border border-blue-100 dark:border-blue-800/30">
- <h2 className="text-xl font-bold mb-4 text-blue-700 dark:text-blue-400 flex items-center gap-2">
- 🎨 Sở thích
- </h2>
- <ul className="space-y-2 text-gray-700 dark:text-zinc-300">
- <li className="flex items-center gap-2">✨ Lập trình Web & AI</li>
- <li className="flex items-center gap-2">📚 Đọc sách công nghệ</li>
- <li className="flex items-center gap-2">🏸 Chơi cầu lông</li>
- <li className="flex items-center gap-2">🎧 Nghe nhạc Lofi</li>
- </ul>
- </div>
+export default function HomePage() {
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-16">
+      {/* Hero section */}
+      <div className="text-center mb-16">
+        <div className="w-24 h-24 bg-blue-100 rounded-full mx-auto mb-6 flex items-center justify-center">
+          <span className="text-4xl">H</span>
+        </div>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          Xin chào! Tôi là <span className="text-blue-600">Dơng Gur Ha Hải</span>
+        </h1>
+        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Sinh viên Công nghệ Thông tin tại Đại học Đà Lạt. Đam mê phát triển web và khám phá các công nghệ mới.
+        </p>
+        <div className="flex justify-center gap-4">
+          <Link
+            href="/projects"
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Xem dự án
+          </Link>
+          <Link
+            href="/contact"
+            className="border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            Liên hệ
+          </Link>
+        </div>
+      </div>
 
- <div className="bg-emerald-50 dark:bg-emerald-900/20 p-6 rounded-2xl border border-emerald-100 dark:border-emerald-800/30">
- <h2 className="text-xl font-bold mb-4 text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
- 🎯 Mục tiêu học tập
- </h2>
- <ul className="space-y-2 text-gray-700 dark:text-zinc-300">
- <li className="flex items-center gap-2">🚀 Làm chủ Next.js 15</li>
- <li className="flex items-center gap-2">🤖 Ứng dụng AI vào PTPM</li>
- <li className="flex items-center gap-2">💼 Xây dựng Portfolio cá nhân</li>
- <li className="flex items-center gap-2">🏆 Hoàn thành tốt môn học</li>
- </ul>
- </div>
- </div>
+      {/* Skills section */}
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold text-center mb-8">Kỹ năng</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            "JavaScript",
+            "TypeScript",
+            "React",
+            "Next.JS",
+            "Tailwind CSS",
+            "Node.js",
+            "Git",
+            "SQL",
+          ].map((skill) => (
+            <div
+              key={skill}
+              className="bg-gray-50 rounded-lg p-4 text-center hover:bg-blue-50 hover:text-blue-600 transition-colors"
+            >
+              {skill}
+            </div>
+          ))}
+        </div>
+      </div>
 
- <div className="bg-gradient-to-r from-blue-600 to-teal-500 rounded-xl p-[2px]">
- <div className="bg-white dark:bg-zinc-950 rounded-[10px] p-4">
- <p className="text-lg font-medium bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 text-transparent">
- 🚀 Đây là project Next.JS đầu tiên của tôi!
- </p>
- </div>
- </div>
- </div>
- </main>
- );
+      {/* CTA section */}
+      <div className="bg-blue-50 rounded-2xl p-8 text-center">
+        <h2 className="text-2xl font-bold mb-3">Đọc Blog của tôi</h2>
+        <p className="text-gray-600 mb-4">
+          Chia sẻ kiến thức và kinh nghiệm về lập trình, công nghệ
+        </p>
+        <Link
+          href="/blog"
+          className="text-blue-600 font-semibold hover:underline"
+        >
+          Xem blog →
+        </Link>
+      </div>
+    </div>
+  );
 }
