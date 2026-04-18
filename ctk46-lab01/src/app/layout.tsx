@@ -14,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
-      <body className="min-h-screen flex flex-col">
+    <html lang="vi" className="scroll-smooth">
+      <body className="min-h-screen flex flex-col bg-white dark:bg-zinc-950 text-gray-900 dark:text-zinc-100 transition-colors duration-300">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
