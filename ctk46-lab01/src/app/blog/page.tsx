@@ -1,35 +1,44 @@
 import Link from "next/link";
-import { posts } from "@/data/posts";
+import { Post } from "@/types/post";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
-export default function BlogPage() {
+async function getPosts(): Promise<Post[]> {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    next: { revalidate: 60 },
+  });
+  if (!res.ok) {
+    throw new Error("Không thể tải danh sách bài viết");
+  }
+  return res.json();
+}
+
+export default async function BlogPage() {
+  const posts = await getPosts();
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">Blog</h1>
-      <div className="space-y-6">
-        {posts.map((post) => (
-          <article
-            key={post.slug}
-            className="border rounded-lg p-6 hover:shadow-md transition-shadow"
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">
-                {post.category}
-              </span>
-              <span className="text-sm text-gray-400">{post.date}</span>
-            </div>
-            <Link href={`/blog/${post.slug}`}>
-              <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 transition-colors">
-                {post.title}
-              </h2>
-            </Link>
-            <p className="text-gray-600">{post.excerpt}</p>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="inline-block mt-3 text-blue-600 text-sm hover:underline"
-            >
-              Đọc thêm →
-            </Link>
-          </article>
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-2">Blog</h1>
+      <p className="text-muted-foreground mb-6">
+        Tổng cộng {posts.length} bài viết từ API
+      </p>
+
+      <div className="space-y-4">
+        {posts.slice(0, 10).map((post) => (
+          <Link key={post.id} href={`/blog/${post.id}`}>
+            <Card className="hover:shadow-md transition-shadow cursor-pointer mb-4">
+              <CardHeader>
+                <div className="flex items-center gap-2 mb-1">
+                  <Badge variant="secondary">Tác giả #{post.userId}</Badge>
+                  <span className="text-sm text-muted-foreground">Bài #{post.id}</span>
+                </div>
+                <CardTitle className="capitalize leading-tight">{post.title}</CardTitle>
+                <CardDescription className="line-clamp-2 mt-2">
+                  {post.body}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>
