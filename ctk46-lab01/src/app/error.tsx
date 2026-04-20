@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function RootError({
   error,
@@ -28,12 +29,12 @@ export default function RootError({
           >
             Thử tải lại trang
           </button>
-          <a
+          <Link
             href="/"
             className="border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-50 transition-colors"
           >
             Về trang chủ
-          </a>
+          </Link>
         </div>
       </div>
     </div>

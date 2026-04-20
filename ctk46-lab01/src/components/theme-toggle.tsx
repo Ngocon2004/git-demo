@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // 1. Kiểm tra localStorage hoặc hệ thống
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
     const savedTheme = localStorage.getItem("theme");
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     
@@ -30,6 +32,10 @@ export default function ThemeToggle() {
       setIsDark(true);
     }
   };
+
+  if (!mounted) {
+    return <div className="p-2 w-10 h-10" />;
+  }
 
   return (
     <button

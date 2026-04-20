@@ -23,14 +23,14 @@ export default async function CountryDetailPage({ params }: CountryPageProps) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <Button asChild variant="ghost" className="mb-8 p-0 hover:bg-transparent">
-        <Link href="/countries" className="flex items-center gap-2 text-emerald-600">
+      <Link href="/countries" className="mb-8 inline-block">
+        <Button variant="ghost" className="p-0 hover:bg-transparent flex items-center gap-2 text-emerald-600">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           Quay lại danh sách
-        </Link>
-      </Button>
+        </Button>
+      </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
         <div className="space-y-6">
@@ -41,11 +41,11 @@ export default async function CountryDetailPage({ params }: CountryPageProps) {
               className="w-full h-auto object-cover"
             />
           </div>
-          <Button asChild className="w-full" size="lg">
-            <a href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer">
+          <a href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer" className="block w-full">
+            <Button className="w-full" size="lg">
               Xem trên Google Maps
-            </a>
-          </Button>
+            </Button>
+          </a>
         </div>
 
         <div className="space-y-8">

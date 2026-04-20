@@ -55,14 +55,14 @@ export default function ProjectsPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button asChild variant="ghost" className="p-0 hover:bg-transparent text-emerald-600 dark:text-emerald-400 font-bold">
-                <Link href={`/projects/${project.id}`} className="inline-flex items-center gap-2">
+              <Link href={`/projects/${project.id}`}>
+                <Button variant="ghost" className="p-0 hover:bg-transparent text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-2">
                   Xem chi tiết dự án
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
         ))}
