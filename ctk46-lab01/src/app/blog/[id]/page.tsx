@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Post, User, Comment } from "@/types/post";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 interface BlogPostPageProps {
   params: Promise<{ id: string }>;
@@ -23,7 +28,6 @@ async function getUser(userId: number): Promise<User> {
 }
 
 async function getComments(postId: string): Promise<Comment[]> {
-  // Bài tập tự làm 1.2: Fetch danh sách comments
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`, {
     next: { revalidate: 60 },
   });
@@ -33,9 +37,6 @@ async function getComments(postId: string): Promise<Comment[]> {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { id } = await params;
-
-  // Bài tập tự làm 1.3: Chạy song song các request bằng Promise.all
-  // Lưu ý: Chúng ta lấy post trước vì cần userId cho request getUser
   const post = await getPost(id);
   
   const [author, comments] = await Promise.all([
@@ -44,51 +45,78 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ]);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <Link
-        href="/blog"
-        className="text-blue-600 hover:underline text-sm mb-6 inline-block"
-      >
-        ← Quay lại danh sách
+    <div className="max-w-4xl mx-auto px-4 py-12">
+      <Link href="/blog" className="mb-8 inline-block">
+        <Button variant="ghost" className="p-0 hover:bg-transparent flex items-center gap-2 text-emerald-600">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Quay lại danh sách
+        </Button>
       </Link>
 
-      <article>
-        <h1 className="text-4xl font-bold mb-4 capitalize">{post.title}</h1>
-        
-        <div className="flex items-center gap-3 mb-8 text-sm text-gray-500">
-          <span>Tác giả: <strong className="text-gray-900">{author.name}</strong></span>
-          <span>•</span>
-          <span>{author.email}</span>
+      <article className="space-y-8">
+        <header className="space-y-4">
+          <div className="flex items-center gap-3">
+            <Badge variant="secondary">Bài viết #{post.id}</Badge>
+            <span className="text-sm text-muted-foreground">
+              Tác giả: <strong className="text-foreground">{author.name}</strong>
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight capitalize leading-tight">
+            {post.title}
+          </h1>
+        </header>
+
+        <div className="prose prose-emerald dark:prose-invert max-w-none text-xl leading-relaxed text-muted-foreground">
+          {post.body.repeat(5)} {/* Giả lập nội dung dài hơn cho đẹp layout */}
         </div>
 
-        <div className="prose max-w-none text-gray-700 text-lg leading-relaxed mb-12">
-          {post.body}
-        </div>
+        <Card className="bg-muted/50 border-none shadow-none mt-12">
+          <CardHeader className="flex flex-row items-center gap-4">
+            <Avatar className="h-12 w-12">
+              <AvatarFallback className="bg-emerald-600 text-white font-bold">
+                {author.name.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div>
+              <CardTitle className="text-lg">{author.name}</CardTitle>
+              <p className="text-sm text-muted-foreground">@{author.username} • {author.company.name}</p>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm italic text-muted-foreground">"{author.company.catchPhrase}"</p>
+            <div className="mt-4 flex gap-4 text-xs font-medium">
+              <span className="text-emerald-600">{author.email}</span>
+              <span className="text-muted-foreground">{author.website}</span>
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* Thông tin tác giả */}
-        <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-12">
-          <h3 className="font-semibold mb-2">Về tác giả</h3>
-          <p className="text-gray-600">
-            <strong>{author.name}</strong> (@{author.username}) — {author.company.name}
-          </p>
-          <p className="text-gray-500 text-sm italic">{author.company.catchPhrase}</p>
-        </div>
-
-        {/* Bài tập tự làm 1.2: Hiển thị danh sách bình luận */}
-        <div className="border-t pt-10">
-          <h2 className="text-2xl font-bold mb-6">Bình luận ({comments.length})</h2>
+        <section className="pt-16">
+          <div className="flex items-center gap-4 mb-8">
+            <h2 className="text-2xl font-bold">Bình luận</h2>
+            <Badge variant="outline">{comments.length}</Badge>
+          </div>
           <div className="space-y-6">
             {comments.map((comment) => (
-              <div key={comment.id} className="bg-white border rounded-lg p-4 shadow-sm">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-semibold text-gray-800">{comment.name}</span>
-                  <span className="text-xs text-gray-400">{comment.email}</span>
+              <div key={comment.id} className="flex gap-4">
+                <Avatar className="h-8 w-8 shrink-0">
+                  <AvatarFallback className="text-[10px]">
+                    {comment.name.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold">{comment.name}</span>
+                    <span className="text-[10px] text-muted-foreground uppercase">{comment.email}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{comment.body}</p>
                 </div>
-                <p className="text-gray-600 text-sm">{comment.body}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
       </article>
     </div>
   );

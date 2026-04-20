@@ -32,6 +32,12 @@ export default function HomePage() {
             Xem dự án của tôi
           </Link>
           <Link
+            href="/countries"
+            className="px-8 py-4 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 font-bold rounded-xl border border-emerald-100 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 hover:scale-105 active:scale-95 transition-all"
+          >
+            Khám phá thế giới
+          </Link>
+          <Link
             href="/contact"
             className="px-8 py-4 bg-white dark:bg-zinc-900 text-gray-700 dark:text-zinc-300 font-bold rounded-xl border border-gray-200 dark:border-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-800 hover:scale-105 active:scale-95 transition-all"
           >
