@@ -13,6 +13,8 @@ export default function Navbar() {
     { href: "/skills", label: "Kỹ năng" },
     { href: "/blog", label: "Blog" },
     { href: "/projects", label: "Dự án" },
+    { href: "/countries", label: "Khám phá" },
+    { href: "/guestbook", label: "Lưu bút" },
     { href: "/contact", label: "Liên hệ" },
   ];
 
