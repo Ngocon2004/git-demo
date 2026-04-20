@@ -1,43 +1,105 @@
+"use client";
+
+import { useActionState, useEffect, useRef } from "react";
+import { sendContactMessage, ContactState } from "./actions";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import CopyButton from "@/components/copy-button";
 
+const initialState: ContactState = {
+  success: false,
+};
+
 export default function ContactPage() {
+  const [state, formAction, isPending] = useActionState(sendContactMessage, initialState);
+  const formRef = useRef<HTMLFormElement>(null);
   const email = "2212363@dlu.edu.vn";
-  const github = "https://github.com/Ngocon2004?tab=repositories";
-  
+
+  useEffect(() => {
+    if (state.success) {
+      formRef.current?.reset();
+    }
+  }, [state.success]);
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-20">
-      <h1 className="text-4xl font-black mb-12 tracking-tight">Liên hệ với tôi</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="space-y-8">
-          <p className="text-lg text-gray-600 dark:text-zinc-400 leading-relaxed">
+    <div className="max-w-5xl mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold mb-8 tracking-tight">Liên hệ với tôi</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
             Tôi luôn sẵn lòng lắng nghe và hợp tác. Nếu bạn có bất kỳ câu hỏi nào hoặc muốn thảo luận về dự án, đừng ngần ngại liên hệ nhé!
           </p>
           
-          <div className="space-y-6">
-            <div className="bg-gray-50 dark:bg-zinc-900 p-6 rounded-3xl border border-gray-100 dark:border-zinc-800 transition-all hover:border-emerald-500/30">
-              <p className="text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Email cá nhân</p>
+          <Card>
+            <CardHeader>
+              <CardDescription className="text-xs uppercase tracking-widest">Email cá nhân</CardDescription>
               <div className="flex items-center justify-between gap-4">
-                <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400 truncate">{email}</span>
+                <CardTitle className="text-lg font-bold text-emerald-600 dark:text-emerald-400 truncate">
+                  {email}
+                </CardTitle>
                 <CopyButton text={email} />
               </div>
-            </div>
-            
-            <div className="bg-gray-50 dark:bg-zinc-900 p-6 rounded-3xl border border-gray-100 dark:border-zinc-800 transition-all hover:border-emerald-500/30">
-              <p className="text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Địa chỉ</p>
-              <p className="text-lg font-bold">Đại học Đà Lạt, 01 Phù Đổng Thiên Vương, Đà Lạt</p>
-            </div>
-          </div>
+            </CardHeader>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardDescription className="text-xs uppercase tracking-widest">Địa chỉ</CardDescription>
+              <CardTitle className="text-lg font-bold">
+                Đại học Đà Lạt, 01 Phù Đổng Thiên Vương, Đà Lạt
+              </CardTitle>
+            </CardHeader>
+          </Card>
         </div>
 
-        <div className="bg-emerald-600 dark:bg-emerald-500 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-emerald-900/20">
-          <h2 className="text-2xl font-black mb-6">Mạng xã hội</h2>
-          <div className="space-y-4">
-            <a href={github} target="_blank" className="flex items-center justify-between p-4 bg-white/10 rounded-2xl hover:bg-white/20 transition-colors">
-              <span className="font-bold">GitHub</span>
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-            </a>
-          </div>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Gửi tin nhắn</CardTitle>
+            <CardDescription>Tôi sẽ phản hồi bạn sớm nhất có thể.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {state.success ? (
+              <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-6 rounded-xl text-center">
+                <h3 className="text-emerald-700 dark:text-emerald-400 font-bold mb-2">Gửi thành công!</h3>
+                <p className="text-emerald-600 dark:text-emerald-500 text-sm">{state.message}</p>
+                <Button variant="outline" className="mt-4" onClick={() => window.location.reload()}>
+                  Gửi tin nhắn khác
+                </Button>
+              </div>
+            ) : (
+              <form ref={formRef} action={formAction} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Họ và tên</Label>
+                  <Input id="name" name="name" placeholder="Nguyễn Văn A" required />
+                  {state.errors?.name && <p className="text-xs text-destructive">{state.errors.name[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" name="email" type="email" placeholder="email@example.com" required />
+                  {state.errors?.email && <p className="text-xs text-destructive">{state.errors.email[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Tiêu đề</Label>
+                  <Input id="subject" name="subject" placeholder="Chủ đề bạn muốn trao đổi" required />
+                  {state.errors?.subject && <p className="text-xs text-destructive">{state.errors.subject[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Nội dung</Label>
+                  <Textarea id="message" name="message" placeholder="Viết nội dung tin nhắn..." required rows={4} />
+                  {state.errors?.message && <p className="text-xs text-destructive">{state.errors.message[0]}</p>}
+                </div>
+                <Button type="submit" className="w-full" disabled={isPending}>
+                  {isPending ? "Đang gửi..." : "Gửi tin nhắn"}
+                </Button>
+              </form>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
