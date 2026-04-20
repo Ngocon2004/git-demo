@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
 
     guestbookEntries.unshift(newEntry);
     return NextResponse.json(newEntry, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Dữ liệu không hợp lệ" },
       { status: 400 }

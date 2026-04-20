@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Post } from "@/types/post";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 async function getPosts(): Promise<Post[]> {

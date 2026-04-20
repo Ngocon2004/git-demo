@@ -30,7 +30,7 @@ export default function CountryList({ initialCountries }: { initialCountries: Co
 
       {filteredCountries.length === 0 ? (
         <div className="text-center py-20 bg-muted/20 rounded-3xl border-2 border-dashed">
-          <p className="text-muted-foreground font-medium">Không tìm thấy quốc gia nào khớp với "{search}"</p>
+          <p className="text-muted-foreground font-medium">Không tìm thấy quốc gia nào khớp với &quot;{search}&quot;</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

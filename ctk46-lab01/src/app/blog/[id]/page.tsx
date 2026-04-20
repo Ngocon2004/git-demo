@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-sm italic text-muted-foreground">"{author.company.catchPhrase}"</p>
+            <p className="text-sm italic text-muted-foreground">&quot;{author.company.catchPhrase}&quot;</p>
             <div className="mt-4 flex gap-4 text-xs font-medium">
               <span className="text-emerald-600">{author.email}</span>
               <span className="text-muted-foreground">{author.website}</span>
